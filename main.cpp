@@ -2,8 +2,8 @@
 #include "Servo.h"
 
 Servo myservo(D7);
-AnalogIn Pot(A5);
-int val; 
+
+int angle_deg=90;
 
 long map(long x, long in_min, long in_max, long out_min, long out_max)
 {
@@ -11,10 +11,12 @@ long map(long x, long in_min, long in_max, long out_min, long out_max)
 }
 
 int main() {
+    int val=0;
     while (1){
-        val = map(Pot.read_u16(), 900, 65535, 0, 100);
-        myservo = val/100.0; // 0(0 deg) - 100(180 deg) value 
-        printf("%d\n", val);
+        val = map(angle_deg, 0, 180, 0, 100);
+
+        myservo = val/100.0; // 0(0 deg) - 1.0(180 deg) value 
+
         ThisThread::sleep_for(10ms);
     }
  }
